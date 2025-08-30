@@ -1,0 +1,156 @@
+import "./global.css";
+
+import { Toaster } from "@/components/ui/toaster";
+import { createRoot } from "react-dom/client";
+import { Toaster as Sonner } from "@/components/ui/sonner";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "@/context/AuthContext";
+import ProtectedRoute from "@/components/Auth/ProtectedRoute";
+
+// Pages
+import Index from "./pages/Index";
+import Dashboard from "./pages/Dashboard";
+import BundlePage from "./pages/BundlePage";
+import VoucherRecharge from "./pages/VoucherRecharge";
+import Login from "./pages/Login";
+import Unauthorized from "./pages/Unauthorized";
+import Balance from "./pages/Balance";
+import Bundles from "./pages/Bundles";
+import Notifications from "./pages/Notifications";
+import NotFound from "./pages/NotFound";
+
+// Balance Management Pages
+import AdjustBalance from "./pages/BalanceManagement/AdjustBalance";
+import PinRecharge from "./pages/BalanceManagement/PinRecharge";
+import PinlessRecharge from "./pages/BalanceManagement/PinlessRecharge";
+import CheckBalance from "./pages/BalanceManagement/CheckBalance";
+
+// Bundle Management Pages
+import BundleDetails from "./pages/BundleManagement/BundleDetails";
+import SubscribeBundle from "./pages/BundleManagement/SubscribeBundle";
+import RemoveBundle from "./pages/BundleManagement/RemoveBundle";
+import UpdateResources from "./pages/BundleManagement/UpdateResources";
+
+// Utilities Pages
+import UnitConversion from "./pages/Utilities/UnitConversion";
+
+const queryClient = new QueryClient();
+
+const App = () => (
+  <QueryClientProvider client={queryClient}>
+    <AuthProvider>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Routes>
+            {/* Public routes */}
+            <Route path="/login" element={<Login />} />
+            <Route path="/unauthorized" element={<Unauthorized />} />
+
+            {/* Protected routes */}
+            <Route path="/" element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            } />
+
+            <Route path="/bundle_page/:category" element={
+              <ProtectedRoute>
+                <BundlePage />
+              </ProtectedRoute>
+            } />
+
+            <Route path="/balance" element={
+              <ProtectedRoute>
+                <Balance />
+              </ProtectedRoute>
+            } />
+
+            <Route path="/bundles" element={
+              <ProtectedRoute>
+                <Bundles />
+              </ProtectedRoute>
+            } />
+
+            <Route path="/notifications" element={
+              <ProtectedRoute businessOnly>
+                <Notifications />
+              </ProtectedRoute>
+            } />
+
+            {/* Balance Management Routes */}
+            <Route path="/adjust_balance" element={
+              <ProtectedRoute businessOnly>
+                <AdjustBalance />
+              </ProtectedRoute>
+            } />
+
+            <Route path="/recharge_pin" element={
+              <ProtectedRoute>
+                <VoucherRecharge />
+              </ProtectedRoute>
+            } />
+
+            <Route path="/voucher_recharge" element={
+              <ProtectedRoute>
+                <VoucherRecharge />
+              </ProtectedRoute>
+            } />
+
+            <Route path="/recharge_pinless" element={
+              <ProtectedRoute>
+                <PinlessRecharge />
+              </ProtectedRoute>
+            } />
+
+            <Route path="/update_and_balance_info" element={
+              <ProtectedRoute>
+                <CheckBalance />
+              </ProtectedRoute>
+            } />
+
+            {/* Bundle Management Routes */}
+            <Route path="/bundle_info" element={
+              <ProtectedRoute>
+                <BundleDetails />
+              </ProtectedRoute>
+            } />
+
+            <Route path="/subscribe_bundle" element={
+              <ProtectedRoute>
+                <SubscribeBundle />
+              </ProtectedRoute>
+            } />
+
+            <Route path="/remove_bundle" element={
+              <ProtectedRoute>
+                <RemoveBundle />
+              </ProtectedRoute>
+            } />
+
+            <Route path="/update_bundle" element={
+              <ProtectedRoute>
+                <UpdateResources />
+              </ProtectedRoute>
+            } />
+
+            {/* Utilities Routes */}
+            <Route path="/unit_convertion" element={
+              <ProtectedRoute adminOnly>
+                <UnitConversion />
+              </ProtectedRoute>
+            } />
+
+            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </TooltipProvider>
+    </AuthProvider>
+  </QueryClientProvider>
+);
+
+createRoot(document.getElementById("root")!).render(<App />);
