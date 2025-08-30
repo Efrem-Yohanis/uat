@@ -123,7 +123,7 @@ function generateProducts(categories: ProductCategory[], totalPerCategory = 12):
         id: `row-${idSeq++}`,
         productCategory: cat.name,
         resourceType: rType,
-        validity: `${validityDays} days`;
+        validity: `${validityDays} days`,
         productType: pType,
         nccId: `${cat.name}-${String(i + 1).padStart(4, '0')}`,
       });
