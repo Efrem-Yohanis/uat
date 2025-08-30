@@ -15,6 +15,7 @@ import {
   Home
 } from 'lucide-react';
 import DashboardProductsTable, { DashboardProductRow } from '@/components/DashboardProductsTable';
+import { useEffect, useMemo, useState } from 'react';
 
 interface ProductCategory {
   name: string;
