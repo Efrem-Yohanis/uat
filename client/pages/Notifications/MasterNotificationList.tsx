@@ -138,30 +138,30 @@ export default function MasterNotificationList() {
               </div>
               <div>
                 <Label>Resource Type</Label>
-                <Select value={filters.resourceType} onValueChange={(v) => setFilters((f) => ({ ...f, resourceType: v }))}>
+                <Select value={filters.resourceType || "__all__"} onValueChange={(v) => setFilters((f) => ({ ...f, resourceType: v === "__all__" ? "" : v }))}>
                   <SelectTrigger className="mt-2"><SelectValue placeholder="All" /></SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">All</SelectItem>
+                    <SelectItem value="__all__">All</SelectItem>
                     {RESOURCE_TYPES.map((r) => <SelectItem key={r} value={r}>{r}</SelectItem>)}
                   </SelectContent>
                 </Select>
               </div>
               <div>
                 <Label>Validity</Label>
-                <Select value={filters.validity} onValueChange={(v) => setFilters((f) => ({ ...f, validity: v }))}>
+                <Select value={filters.validity || "__all__"} onValueChange={(v) => setFilters((f) => ({ ...f, validity: v === "__all__" ? "" : v }))}>
                   <SelectTrigger className="mt-2"><SelectValue placeholder="All" /></SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">All</SelectItem>
+                    <SelectItem value="__all__">All</SelectItem>
                     {VALIDITY.map((v) => <SelectItem key={v} value={v}>{v}</SelectItem>)}
                   </SelectContent>
                 </Select>
               </div>
               <div>
                 <Label>Dynamic Price</Label>
-                <Select value={filters.dynamicPrice} onValueChange={(v) => setFilters((f) => ({ ...f, dynamicPrice: v }))}>
+                <Select value={filters.dynamicPrice || "__all__"} onValueChange={(v) => setFilters((f) => ({ ...f, dynamicPrice: v === "__all__" ? "" : v }))}>
                   <SelectTrigger className="mt-2"><SelectValue placeholder="All" /></SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">All</SelectItem>
+                    <SelectItem value="__all__">All</SelectItem>
                     <SelectItem value="true">True</SelectItem>
                     <SelectItem value="false">False</SelectItem>
                   </SelectContent>
