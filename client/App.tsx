@@ -19,6 +19,10 @@ import Unauthorized from "./pages/Unauthorized";
 import Balance from "./pages/Balance";
 import Bundles from "./pages/Bundles";
 import Notifications from "./pages/Notifications";
+import MasterNotificationList from "./pages/Notifications/MasterNotificationList";
+import NotificationList from "./pages/Notifications/NotificationList";
+import UserManagement from "./pages/Users/UserManagement";
+import Registration from "./pages/Users/Registration";
 import NotFound from "./pages/NotFound";
 
 // Balance Management Pages
@@ -82,6 +86,18 @@ const App = () => (
             <Route path="/notifications" element={
               <ProtectedRoute businessOnly>
                 <Notifications />
+              </ProtectedRoute>
+            } />
+
+            {/* Notifications */}
+            <Route path="/master_notification_list" element={
+              <ProtectedRoute businessOnly>
+                <MasterNotificationList />
+              </ProtectedRoute>
+            } />
+            <Route path="/notification_list" element={
+              <ProtectedRoute businessOnly>
+                <NotificationList />
               </ProtectedRoute>
             } />
 
@@ -170,6 +186,18 @@ const App = () => (
             <Route path="/unit_convertion" element={
               <ProtectedRoute adminOnly>
                 <UnitConversion />
+              </ProtectedRoute>
+            } />
+
+            {/* Users */}
+            <Route path="/user_management" element={
+              <ProtectedRoute adminOnly>
+                <UserManagement />
+              </ProtectedRoute>
+            } />
+            <Route path="/registration" element={
+              <ProtectedRoute adminOnly>
+                <Registration />
               </ProtectedRoute>
             } />
 
