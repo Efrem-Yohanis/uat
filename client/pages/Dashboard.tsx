@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import Layout from '@/components/Layout';
 import ProductCategoryCard from '@/components/ProductCategoryCard';
 import BundleDistributionChart from '@/components/BundleDistributionChart';
@@ -14,6 +14,7 @@ import {
   Gift,
   Home
 } from 'lucide-react';
+import DashboardProductsTable, { DashboardProductRow } from '@/components/DashboardProductsTable';
 
 interface ProductCategory {
   name: string;
@@ -24,7 +25,6 @@ interface ProductCategory {
   description: string;
   color: string;
 }
-
 
 interface ChartData {
   category: string;
@@ -108,43 +108,83 @@ const mockProductCategories: ProductCategory[] = [
   }
 ];
 
+const resourceTypes = ['DATA', 'VOICE', 'SMS', 'COMBO'] as const;
+const productTypes = ['Bundle', 'Package', 'Addon'] as const;
+
+function generateProducts(categories: ProductCategory[], totalPerCategory = 12): DashboardProductRow[] {
+  const rows: DashboardProductRow[] = [];
+  let idSeq = 1;
+  for (const cat of categories) {
+    for (let i = 0; i < totalPerCategory; i++) {
+      const rType = resourceTypes[i % resourceTypes.length];
+      const pType = productTypes[(i + 1) % productTypes.length];
+      const validityDays = [1, 7, 14, 30][i % 4];
+      rows.push({
+        id: `row-${idSeq++}`,
+        productCategory: cat.name,
+        resourceType: rType,
+        validity: `${validityDays} days`,
+        productType: pType,
+        nccId: `${cat.name}-${String(i + 1).padStart(4, '0')}`,
+      });
+    }
+  }
+  return rows;
+}
 
 export default function Dashboard() {
   const [productCounts, setProductCounts] = useState<ProductCategory[]>([]);
   const [chartData, setChartData] = useState<ChartData[]>([]);
   const [loading, setLoading] = useState(true);
 
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+  const [allProducts, setAllProducts] = useState<DashboardProductRow[]>([]);
+
   useEffect(() => {
-    // Simulate API calls
     const fetchData = async () => {
       setLoading(true);
-
       try {
-        // Simulate API delay
-        await new Promise(resolve => setTimeout(resolve, 1000));
-
-        // Set product categories with mock data
+        await new Promise(resolve => setTimeout(resolve, 300));
         setProductCounts(mockProductCategories);
-
-        // Set chart data
-        const chartData = mockProductCategories.map(category => ({
+        const cData = mockProductCategories.map(category => ({
           category: category.name,
           count: category.count,
-          color: category.color
+          color: category.color,
         }));
-        setChartData(chartData);
-
+        setChartData(cData);
+        setAllProducts(generateProducts(mockProductCategories, 12));
       } catch (error) {
         console.error('Error fetching dashboard data:', error);
       } finally {
         setLoading(false);
       }
     };
-
     fetchData();
   }, []);
 
   const totalProducts = productCounts.reduce((sum, category) => sum + category.count, 0);
+
+  const filtered = useMemo(() => {
+    return selectedCategory
+      ? allProducts.filter(p => p.productCategory === selectedCategory)
+      : allProducts;
+  }, [allProducts, selectedCategory]);
+
+  const total = filtered.length;
+  const totalPages = Math.max(1, Math.ceil(total / pageSize));
+  const currentPage = Math.min(page, totalPages);
+  const start = (currentPage - 1) * pageSize;
+  const end = start + pageSize;
+  const rows = filtered.slice(start, end);
+
+  const tableTitle = selectedCategory ? `Selected Category: ${selectedCategory}` : 'All Products';
+
+  const handleCategoryClick = (category: string) => {
+    setSelectedCategory(category);
+    setPage(1);
+  };
 
   return (
     <Layout>
@@ -169,9 +209,7 @@ export default function Dashboard() {
         <div className="flex justify-between items-center">
           <div>
             <h1 className="text-3xl font-bold text-foreground">Dashboard</h1>
-            <p className="text-muted-foreground mt-1">
-              Overview of products and system metrics
-            </p>
+            <p className="text-muted-foreground mt-1">Overview of products and system metrics</p>
           </div>
           <div className="text-right">
             <div className="text-2xl font-bold text-brand">{totalProducts}</div>
@@ -182,7 +220,6 @@ export default function Dashboard() {
         {/* Product Category Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {loading ? (
-            // Loading skeletons
             Array.from({ length: 8 }).map((_, index) => (
               <div key={index} className="h-32 bg-muted animate-pulse rounded-lg"></div>
             ))
@@ -196,6 +233,7 @@ export default function Dashboard() {
                 link={category.link}
                 icon={category.icon}
                 description={category.description}
+                onClick={handleCategoryClick}
               />
             ))
           )}
@@ -209,6 +247,17 @@ export default function Dashboard() {
             <BundleDistributionChart data={chartData} />
           )}
         </div>
+
+        {/* Dynamic Products Table */}
+        <DashboardProductsTable
+          title={tableTitle}
+          rows={rows}
+          total={total}
+          page={currentPage}
+          pageSize={pageSize}
+          onPageChange={setPage}
+          onPageSizeChange={(size) => { setPageSize(size); setPage(1); }}
+        />
       </div>
     </Layout>
   );

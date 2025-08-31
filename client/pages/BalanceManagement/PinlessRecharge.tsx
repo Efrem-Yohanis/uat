@@ -104,42 +104,44 @@ const RechargeForm = ({
 
   return (
     <form onSubmit={onSubmit} className="space-y-6">
-      <div className="space-y-2">
-        <Label htmlFor="msisdn">MSISDN *</Label>
-        <Input
-          id="msisdn"
-          type="tel"
-          placeholder="e.g., +254712345678"
-          value={formData.msisdn}
-          onChange={(e) => setFormData({...formData, msisdn: e.target.value})}
-          required
-          className="text-center text-lg"
-        />
-        {formData.msisdn && !validateMSISDN(formData.msisdn) && (
-          <p className="text-xs text-destructive">Please enter a valid phone number</p>
-        )}
-      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="space-y-2">
+          <Label htmlFor="msisdn">MSISDN *</Label>
+          <Input
+            id="msisdn"
+            type="tel"
+            placeholder="e.g., +254712345678"
+            value={formData.msisdn}
+            onChange={(e) => setFormData({...formData, msisdn: e.target.value})}
+            required
+            className="text-lg"
+          />
+          {formData.msisdn && !validateMSISDN(formData.msisdn) && (
+            <p className="text-xs text-destructive">Please enter a valid phone number</p>
+          )}
+        </div>
 
-      <div className="space-y-2">
-        <Label htmlFor="amount">Amount (KES) *</Label>
-        <Input
-          id="amount"
-          type="number"
-          placeholder="Enter amount"
-          value={formData.amount}
-          onChange={(e) => setFormData({...formData, amount: e.target.value})}
-          required
-          min="1"
-          max="100000"
-          step="0.01"
-          className="text-center text-lg"
-        />
-        {formData.amount && !validateAmount(formData.amount) && (
-          <p className="text-xs text-destructive">Amount must be between KES 1 and KES 100,000</p>
-        )}
-        <p className="text-xs text-muted-foreground text-center">
-          Minimum: KES 1.00 | Maximum: KES 100,000.00
-        </p>
+        <div className="space-y-2">
+          <Label htmlFor="amount">Amount (KES) *</Label>
+          <Input
+            id="amount"
+            type="number"
+            placeholder="Enter amount"
+            value={formData.amount}
+            onChange={(e) => setFormData({...formData, amount: e.target.value})}
+            required
+            min="1"
+            max="100000"
+            step="0.01"
+            className="text-lg"
+          />
+          {formData.amount && !validateAmount(formData.amount) && (
+            <p className="text-xs text-destructive">Amount must be between KES 1 and KES 100,000</p>
+          )}
+          <p className="text-xs text-muted-foreground">
+            Minimum: KES 1.00 | Maximum: KES 100,000.00
+          </p>
+        </div>
       </div>
 
       <div className="space-y-2">
@@ -148,7 +150,7 @@ const RechargeForm = ({
           value={formData.channelId} 
           onValueChange={(value) => setFormData({...formData, channelId: value})}
         >
-          <SelectTrigger className="text-center">
+          <SelectTrigger>
             <SelectValue placeholder="Select channel" />
           </SelectTrigger>
           <SelectContent>
@@ -159,7 +161,7 @@ const RechargeForm = ({
             ))}
           </SelectContent>
         </Select>
-        <p className="text-xs text-muted-foreground text-center">
+        <p className="text-xs text-muted-foreground">
           Select the recharge channel
         </p>
       </div>
@@ -358,6 +360,9 @@ export default function PinlessRecharge() {
               <Zap className="h-5 w-5" />
               Pinless Recharge
             </CardTitle>
+            <CardDescription>
+              Enter the customer MSISDN, amount, and select the channel, then click Process Pinless Recharge to apply the credit.
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <RechargeForm

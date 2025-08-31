@@ -114,7 +114,7 @@ export default function UnitConversion() {
                     <h4 className="text-xl font-semibold">Data Unit Converter</h4>
                   </div>
                   
-                  <div className="grid grid-cols-1 md:grid-cols-6 gap-2 items-end">
+                  <div className="grid grid-cols-1 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="dataValue">Value</Label>
                       <Input
@@ -162,7 +162,7 @@ export default function UnitConversion() {
                       </Select>
                     </div>
                     
-                    <div className="md:col-span-2">
+                    <div>
                       <Button 
                         onClick={convertData} 
                         className="w-full bg-brand hover:bg-brand-600"
@@ -190,7 +190,7 @@ export default function UnitConversion() {
                     <h4 className="text-xl font-semibold">Time Converter</h4>
                   </div>
                   
-                  <div className="grid grid-cols-1 md:grid-cols-6 gap-2 items-end">
+                  <div className="grid grid-cols-1 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="timeValue">Value</Label>
                       <Input
@@ -236,7 +236,7 @@ export default function UnitConversion() {
                       </Select>
                     </div>
                     
-                    <div className="md:col-span-2">
+                    <div>
                       <Button 
                         onClick={convertTime} 
                         className="w-full bg-brand hover:bg-brand-600"
@@ -289,7 +289,7 @@ export default function UnitConversion() {
                       </Select>
                     </div>
                     
-                    <div className="md:col-span-2">
+                    <div>
                       <Button 
                         onClick={convertEpoch} 
                         className="w-full bg-brand hover:bg-brand-600"

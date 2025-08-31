@@ -42,6 +42,10 @@ import {
   Calculator,
   RefreshCw,
   Cog,
+  Gift,
+  Banknote,
+  Users,
+  Upload,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/context/AuthContext";
@@ -106,6 +110,26 @@ const sidebarNavItems: NavigationItem[] = [
         href: "/subscribe_bundle",
       },
       {
+        title: "Gift",
+        icon: Gift,
+        href: "/gift_bundle",
+      },
+      {
+        title: "Loan",
+        icon: Banknote,
+        href: "/loan_bundle",
+      },
+      {
+        title: "List Subscribed",
+        icon: List,
+        href: "/subscribed_bundles",
+      },
+      {
+        title: "CVM Bundle",
+        icon: Users,
+        href: "/cvm_bundle",
+      },
+      {
         title: "Remove Bundle",
         icon: XCircle,
         href: "/remove_bundle",
@@ -140,9 +164,24 @@ const sidebarNavItems: NavigationItem[] = [
     roles: ["admin"],
     items: [
       {
+        title: "Roaming Rate Upload",
+        icon: Upload,
+        href: "/roaming_rate_upload",
+      },
+      {
         title: "Roaming Rates",
         icon: Globe,
-        href: "/Romaing_Rate",
+        href: "/roaming_rates",
+      },
+      {
+        title: "Rate Mapping Table",
+        icon: List,
+        href: "/rate_mapping_table",
+      },
+      {
+        title: "Compare Tariff",
+        icon: RefreshCw,
+        href: "/rate_mapping_compare",
       },
     ],
   },
