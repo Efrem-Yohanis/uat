@@ -32,6 +32,10 @@ import BundleDetails from "./pages/BundleManagement/BundleDetails";
 import SubscribeBundle from "./pages/BundleManagement/SubscribeBundle";
 import RemoveBundle from "./pages/BundleManagement/RemoveBundle";
 import UpdateResources from "./pages/BundleManagement/UpdateResources";
+import GiftBundle from "./pages/BundleManagement/GiftBundle";
+import LoanBundle from "./pages/BundleManagement/LoanBundle";
+import SubscribedBundles from "./pages/BundleManagement/SubscribedBundles";
+import CVMBundle from "./pages/BundleManagement/CVMBundle";
 
 // Utilities Pages
 import UnitConversion from "./pages/Utilities/UnitConversion";
@@ -134,6 +138,31 @@ const App = () => (
             <Route path="/update_bundle" element={
               <ProtectedRoute>
                 <UpdateResources />
+              </ProtectedRoute>
+            } />
+
+            {/* New Bundle Management */}
+            <Route path="/gift_bundle" element={
+              <ProtectedRoute>
+                <GiftBundle />
+              </ProtectedRoute>
+            } />
+
+            <Route path="/loan_bundle" element={
+              <ProtectedRoute>
+                <LoanBundle />
+              </ProtectedRoute>
+            } />
+
+            <Route path="/subscribed_bundles" element={
+              <ProtectedRoute>
+                <SubscribedBundles />
+              </ProtectedRoute>
+            } />
+
+            <Route path="/cvm_bundle" element={
+              <ProtectedRoute>
+                <CVMBundle />
               </ProtectedRoute>
             } />
 
