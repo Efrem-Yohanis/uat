@@ -98,7 +98,7 @@ export default function MasterNotificationAdd() {
             <CardTitle>Template Details</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4">
               <div>
                 <Label>Business Units</Label>
                 <div className="flex flex-wrap gap-2 pt-2">
@@ -157,7 +157,7 @@ export default function MasterNotificationAdd() {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4">
               {(['en','am','om','so','ti'] as const).map((lang) => (
                 <div key={lang}>
                   <Label>Marketing Description ({lang.toUpperCase()})</Label>
