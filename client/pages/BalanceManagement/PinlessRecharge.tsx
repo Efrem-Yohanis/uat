@@ -114,7 +114,7 @@ const RechargeForm = ({
             value={formData.msisdn}
             onChange={(e) => setFormData({...formData, msisdn: e.target.value})}
             required
-            className="text-center text-lg"
+            className="text-lg"
           />
           {formData.msisdn && !validateMSISDN(formData.msisdn) && (
             <p className="text-xs text-destructive">Please enter a valid phone number</p>
@@ -133,12 +133,12 @@ const RechargeForm = ({
             min="1"
             max="100000"
             step="0.01"
-            className="text-center text-lg"
+            className="text-lg"
           />
           {formData.amount && !validateAmount(formData.amount) && (
             <p className="text-xs text-destructive">Amount must be between KES 1 and KES 100,000</p>
           )}
-          <p className="text-xs text-muted-foreground text-center">
+          <p className="text-xs text-muted-foreground">
             Minimum: KES 1.00 | Maximum: KES 100,000.00
           </p>
         </div>
@@ -150,7 +150,7 @@ const RechargeForm = ({
           value={formData.channelId} 
           onValueChange={(value) => setFormData({...formData, channelId: value})}
         >
-          <SelectTrigger className="text-center">
+          <SelectTrigger>
             <SelectValue placeholder="Select channel" />
           </SelectTrigger>
           <SelectContent>
@@ -161,7 +161,7 @@ const RechargeForm = ({
             ))}
           </SelectContent>
         </Select>
-        <p className="text-xs text-muted-foreground text-center">
+        <p className="text-xs text-muted-foreground">
           Select the recharge channel
         </p>
       </div>
@@ -360,6 +360,9 @@ export default function PinlessRecharge() {
               <Zap className="h-5 w-5" />
               Pinless Recharge
             </CardTitle>
+            <CardDescription>
+              Enter the customer MSISDN, amount, and select the channel, then click Process Pinless Recharge to apply the credit.
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <RechargeForm
