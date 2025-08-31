@@ -469,7 +469,7 @@ export default function CheckBalance() {
                 <div className="flex">
                   <Button
                     type="submit"
-                    className="w-full md:w-auto bg-brand hover:bg-brand-600"
+                    className="w-full bg-brand hover:bg-brand-600"
                     disabled={loading || !phoneNumber}
                   >
                     {loading ? (
