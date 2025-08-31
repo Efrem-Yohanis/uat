@@ -279,6 +279,9 @@ export default function VoucherRecharge() {
               <CreditCard className="h-5 w-5" />
               Voucher Recharge
             </CardTitle>
+            <CardDescription>
+              Enter the customer MSISDN and 10–16 digit voucher number, then click Process Voucher Recharge to apply the credit. Ensure the voucher is unused and details are correct.
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <RechargeForm
