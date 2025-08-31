@@ -104,7 +104,7 @@ export default function SubscribedBundles() {
                 <Label htmlFor="msisdn">MSISDN</Label>
                 <Input id="msisdn" value={msisdn} onChange={(e) => setMsisdn(e.target.value)} placeholder="MSISDN" required />
               </div>
-              <Button type="submit" disabled={loading} className="w-full md:w-auto bg-brand hover:bg-brand-600">{loading ? 'Searching...' : 'Search'}</Button>
+              <Button type="submit" disabled={loading} className="w-full bg-brand hover:bg-brand-600">{loading ? 'Searching...' : 'Search'}</Button>
             </form>
           </CardContent>
         </Card>
