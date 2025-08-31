@@ -1,10 +1,12 @@
 import Layout from '@/components/Layout';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '@/components/ui/breadcrumb';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { List, Home } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 interface SubscribedBundle {
@@ -56,24 +58,53 @@ export default function SubscribedBundles() {
 
   return (
     <Layout>
-      <div className="max-w-4xl mx-auto space-y-4">
+      <div className="space-y-6">
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/" className="flex items-center gap-1">
+                <Home className="h-4 w-4" />
+                Home
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>Subscribed Bundles</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+
+        <div>
+          <h1 className="text-3xl font-bold text-foreground mb-2">Subscribed Bundles</h1>
+          <p className="text-muted-foreground">View currently subscribed bundles for a user</p>
+        </div>
+
         {message && (
-          <Alert className="mb-2"><AlertDescription>{message}</AlertDescription></Alert>
+          <Alert className="border-green-200 bg-green-50 text-green-800">
+            <AlertDescription>{message}</AlertDescription>
+          </Alert>
         )}
         {error && (
-          <Alert variant="destructive" className="mb-2"><AlertDescription>{error}</AlertDescription></Alert>
+          <Alert variant="destructive">
+            <AlertDescription>{error}</AlertDescription>
+          </Alert>
         )}
+
         <Card>
           <CardHeader>
-            <CardTitle>List of Subscribed Bundles</CardTitle>
+            <CardTitle className="flex items-center gap-2">
+              <List className="h-5 w-5" />
+              Search Subscribed Bundles
+            </CardTitle>
+            <CardDescription>Enter MSISDN to fetch subscriptions</CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={search} className="flex flex-col md:flex-row gap-3 md:items-end">
-              <div className="flex-1">
+              <div className="flex-1 max-w-xl">
                 <Label htmlFor="msisdn">MSISDN</Label>
-                <Input id="msisdn" value={msisdn} onChange={(e) => setMsisdn(e.target.value)} placeholder="MSISDN" />
+                <Input id="msisdn" value={msisdn} onChange={(e) => setMsisdn(e.target.value)} placeholder="MSISDN" required />
               </div>
-              <Button type="submit" disabled={loading} className="w-full md:w-auto">{loading ? 'Searching...' : 'Search'}</Button>
+              <Button type="submit" disabled={loading} className="w-full md:w-auto bg-brand hover:bg-brand-600">{loading ? 'Searching...' : 'Search'}</Button>
             </form>
           </CardContent>
         </Card>
