@@ -106,7 +106,7 @@ export default function GiftBundle() {
                   <Input id="receiver" value={receiver} onChange={(e) => setReceiver(e.target.value)} placeholder="MSISDN" required />
                 </div>
               </div>
-              <div className="max-w-md">
+              <div>
                 <Label htmlFor="bundleId">Bundle ID</Label>
                 <Input id="bundleId" value={bundleId} onChange={(e) => setBundleId(e.target.value)} placeholder="Bundle ID" required />
               </div>
