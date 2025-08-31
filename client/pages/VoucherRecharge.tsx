@@ -75,34 +75,36 @@ const RechargeForm = ({
 }) => {
   return (
     <form onSubmit={onSubmit} className="space-y-6">
-      <div className="space-y-2">
-        <Label htmlFor="msisdn">MSISDN *</Label>
-        <Input
-          id="msisdn"
-          type="tel"
-          placeholder="e.g., +254712345678"
-          value={formData.msisdn}
-          onChange={(e) => setFormData({...formData, msisdn: e.target.value})}
-          required
-          className="text-center text-lg"
-        />
-      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="space-y-2">
+          <Label htmlFor="msisdn">MSISDN *</Label>
+          <Input
+            id="msisdn"
+            type="tel"
+            placeholder="e.g., +254712345678"
+            value={formData.msisdn}
+            onChange={(e) => setFormData({...formData, msisdn: e.target.value})}
+            required
+            className="text-lg"
+          />
+        </div>
 
-      <div className="space-y-2">
-        <Label htmlFor="voucher">Voucher Number *</Label>
-        <Input
-          id="voucher"
-          type="text"
-          placeholder="Enter voucher/PIN number"
-          value={formData.voucher}
-          onChange={(e) => setFormData({...formData, voucher: e.target.value.replace(/\D/g, '').substring(0, 16)})}
-          required
-          className="text-center text-lg font-mono"
-          maxLength={16}
-        />
-        <p className="text-xs text-muted-foreground text-center">
-          Enter the voucher number from your scratch card
-        </p>
+        <div className="space-y-2">
+          <Label htmlFor="voucher">Voucher Number *</Label>
+          <Input
+            id="voucher"
+            type="text"
+            placeholder="Enter voucher/PIN number"
+            value={formData.voucher}
+            onChange={(e) => setFormData({...formData, voucher: e.target.value.replace(/\D/g, '').substring(0, 16)})}
+            required
+            className="text-lg font-mono"
+            maxLength={16}
+          />
+          <p className="text-xs text-muted-foreground">
+            Enter the voucher number from your scratch card
+          </p>
+        </div>
       </div>
 
       {/* Hidden channel ID field - pre-filled */}
