@@ -46,6 +46,10 @@ import CVMBundle from "./pages/BundleManagement/CVMBundle";
 
 // Utilities Pages
 import UnitConversion from "./pages/Utilities/UnitConversion";
+import RoamingRateUpload from "./pages/Rates/RoamingRateUpload";
+import RoamingRates from "./pages/Rates/RoamingRates";
+import RateMappingTable from "./pages/Rates/RateMappingTable";
+import RateMappingCompare from "./pages/Rates/RateMappingCompare";
 
 const queryClient = new QueryClient();
 
@@ -204,6 +208,28 @@ const App = () => (
             <Route path="/unit_convertion" element={
               <ProtectedRoute adminOnly>
                 <UnitConversion />
+              </ProtectedRoute>
+            } />
+
+            {/* Rates */}
+            <Route path="/roaming_rate_upload" element={
+              <ProtectedRoute adminOnly>
+                <RoamingRateUpload />
+              </ProtectedRoute>
+            } />
+            <Route path="/roaming_rates" element={
+              <ProtectedRoute adminOnly>
+                <RoamingRates />
+              </ProtectedRoute>
+            } />
+            <Route path="/rate_mapping_table" element={
+              <ProtectedRoute adminOnly>
+                <RateMappingTable />
+              </ProtectedRoute>
+            } />
+            <Route path="/rate_mapping_compare" element={
+              <ProtectedRoute adminOnly>
+                <RateMappingCompare />
               </ProtectedRoute>
             } />
 
