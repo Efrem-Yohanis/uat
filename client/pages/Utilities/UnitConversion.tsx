@@ -8,7 +8,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Separator } from '@/components/ui/separator';
 import { RefreshCw, HardDrive, Clock, Calendar } from 'lucide-react';
-import { useState } from 'react';
 
 export default function UnitConversion() {
   // Data Converter State
