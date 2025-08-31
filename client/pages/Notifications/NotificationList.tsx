@@ -113,30 +113,30 @@ export default function NotificationList() {
           <CardContent className="grid grid-cols-1 md:grid-cols-6 gap-4">
             <div>
               <Label>Business Unit</Label>
-              <Select value={filters.businessUnit} onValueChange={(v) => setFilters((f) => ({ ...f, businessUnit: v }))}>
+              <Select value={filters.businessUnit || "__all__"} onValueChange={(v) => setFilters((f) => ({ ...f, businessUnit: v === "__all__" ? "" : v }))}>
                 <SelectTrigger className="mt-2"><SelectValue placeholder="All" /></SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">All</SelectItem>
+                  <SelectItem value="__all__">All</SelectItem>
                   {BUSINESS_UNITS.map((b) => <SelectItem key={b} value={b}>{b}</SelectItem>)}
                 </SelectContent>
               </Select>
             </div>
             <div>
               <Label>Resource Type</Label>
-              <Select value={filters.resourceType} onValueChange={(v) => setFilters((f) => ({ ...f, resourceType: v }))}>
+              <Select value={filters.resourceType || "__all__"} onValueChange={(v) => setFilters((f) => ({ ...f, resourceType: v === "__all__" ? "" : v }))}>
                 <SelectTrigger className="mt-2"><SelectValue placeholder="All" /></SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">All</SelectItem>
+                  <SelectItem value="__all__">All</SelectItem>
                   {RESOURCE_TYPES.map((r) => <SelectItem key={r} value={r}>{r}</SelectItem>)}
                 </SelectContent>
               </Select>
             </div>
             <div>
               <Label>Validity</Label>
-              <Select value={filters.validity} onValueChange={(v) => setFilters((f) => ({ ...f, validity: v }))}>
+              <Select value={filters.validity || "__all__"} onValueChange={(v) => setFilters((f) => ({ ...f, validity: v === "__all__" ? "" : v }))}>
                 <SelectTrigger className="mt-2"><SelectValue placeholder="All" /></SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">All</SelectItem>
+                  <SelectItem value="__all__">All</SelectItem>
                   {VALIDITY.map((v) => <SelectItem key={v} value={v}>{v}</SelectItem>)}
                 </SelectContent>
               </Select>
