@@ -93,7 +93,7 @@ export default function LoanBundle() {
             <CardDescription>Provide MSISDN and Loan ID</CardDescription>
           </CardHeader>
           <CardContent>
-            <form onSubmit={submit} className="space-y-4 max-w-md">
+            <form onSubmit={submit} className="space-y-4">
               <div>
                 <Label htmlFor="msisdn">MSISDN</Label>
                 <Input id="msisdn" value={msisdn} onChange={(e) => setMsisdn(e.target.value)} placeholder="MSISDN" required />
@@ -102,7 +102,7 @@ export default function LoanBundle() {
                 <Label htmlFor="loanId">Loan ID</Label>
                 <Input id="loanId" value={loanId} onChange={(e) => setLoanId(e.target.value)} placeholder="Loan ID" required />
               </div>
-              <Button type="submit" disabled={loading} className="bg-brand hover:bg-brand-600">
+              <Button type="submit" disabled={loading} className="w-full bg-brand hover:bg-brand-600">
                 {loading ? 'Submitting...' : 'Submit'}
               </Button>
             </form>
