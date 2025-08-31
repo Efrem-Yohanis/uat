@@ -45,6 +45,7 @@ import {
   Gift,
   Banknote,
   Users,
+  Upload,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/context/AuthContext";
