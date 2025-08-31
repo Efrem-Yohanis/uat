@@ -110,7 +110,7 @@ export default function GiftBundle() {
                 <Label htmlFor="bundleId">Bundle ID</Label>
                 <Input id="bundleId" value={bundleId} onChange={(e) => setBundleId(e.target.value)} placeholder="Bundle ID" required />
               </div>
-              <Button type="submit" disabled={loading} className="bg-brand hover:bg-brand-600">
+              <Button type="submit" disabled={loading} className="w-full bg-brand hover:bg-brand-600">
                 {loading ? 'Sending...' : 'Send'}
               </Button>
             </form>
