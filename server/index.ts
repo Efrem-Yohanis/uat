@@ -6,6 +6,8 @@ import { handleGift } from "./routes/gift";
 import { handleLoan } from "./routes/loan";
 import { handleSubscriptions } from "./routes/subscriptions";
 import { handleGetCvmBuckets, handleCvmSubscribe } from "./routes/cvm";
+import { listMasterNotifications, createMasterNotification, getMasterNotification, updateMasterNotification, deleteMasterNotification } from "./routes/masterNotifications";
+import { listNotifications, getNotification, updateNotification, deleteNotification, regenerateNotification, downloadNotification } from "./routes/notifications";
 
 export function createServer() {
   const app = express();
