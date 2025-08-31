@@ -9,6 +9,7 @@ import { handleGetCvmBuckets, handleCvmSubscribe } from "./routes/cvm";
 import { listMasterNotifications, createMasterNotification, getMasterNotification, updateMasterNotification, deleteMasterNotification } from "./routes/masterNotifications";
 import { listNotifications, getNotification, updateNotification, deleteNotification, regenerateNotification, downloadNotification } from "./routes/notifications";
 import { uploadRoamingRates, getRoamingRates, downloadRoamingExcel, downloadRateIdsZip, getMappingTable, downloadMappingCsv, compareMappingTables } from "./routes/rates";
+import { listUsers, createUser, getUser, updateUser, deleteUser } from "./routes/users";
 
 export function createServer() {
   const app = express();
