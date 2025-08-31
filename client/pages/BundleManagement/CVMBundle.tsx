@@ -1,10 +1,12 @@
 import Layout from '@/components/Layout';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '@/components/ui/breadcrumb';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Users, Home } from 'lucide-react';
 import { useState } from 'react';
 
 interface BucketDef {
@@ -87,28 +89,57 @@ export default function CVMBundle() {
 
   return (
     <Layout>
-      <div className="max-w-4xl mx-auto space-y-4">
+      <div className="space-y-6">
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/" className="flex items-center gap-1">
+                <Home className="h-4 w-4" />
+                Home
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>CVM Bundle</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+
+        <div>
+          <h1 className="text-3xl font-bold text-foreground mb-2">CVM Bundle Subscription</h1>
+          <p className="text-muted-foreground">Subscribe CVM bundles with dynamic buckets</p>
+        </div>
+
         {message && (
-          <Alert className="mb-2"><AlertDescription>{message}</AlertDescription></Alert>
+          <Alert className="border-green-200 bg-green-50 text-green-800">
+            <AlertDescription>{message}</AlertDescription>
+          </Alert>
         )}
         {error && (
-          <Alert variant="destructive" className="mb-2"><AlertDescription>{error}</AlertDescription></Alert>
+          <Alert variant="destructive">
+            <AlertDescription>{error}</AlertDescription>
+          </Alert>
         )}
+
         <Card>
           <CardHeader>
-            <CardTitle>CVM Bundle Subscription</CardTitle>
+            <CardTitle className="flex items-center gap-2">
+              <Users className="h-5 w-5" />
+              CVM Bundle
+            </CardTitle>
+            <CardDescription>Enter MSISDN and Bundle ID, then fetch buckets</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
                 <Label htmlFor="msisdn">MSISDN</Label>
-                <Input id="msisdn" value={msisdn} onChange={(e) => setMsisdn(e.target.value)} placeholder="MSISDN" />
+                <Input id="msisdn" value={msisdn} onChange={(e) => setMsisdn(e.target.value)} placeholder="MSISDN" required />
               </div>
               <div className="md:col-span-2">
                 <Label htmlFor="bundleId">Bundle ID</Label>
                 <div className="flex gap-2">
-                  <Input id="bundleId" value={bundleId} onChange={(e) => setBundleId(e.target.value)} placeholder="Bundle ID" />
-                  <Button type="button" onClick={fetchBuckets}>Fetch Buckets</Button>
+                  <Input id="bundleId" value={bundleId} onChange={(e) => setBundleId(e.target.value)} placeholder="Bundle ID" required />
+                  <Button type="button" onClick={fetchBuckets} className="bg-brand hover:bg-brand-600">Fetch Buckets</Button>
                 </div>
               </div>
             </div>
@@ -144,7 +175,7 @@ export default function CVMBundle() {
               </div>
             )}
 
-            <Button type="button" onClick={subscribe} disabled={loading}>{loading ? 'Subscribing...' : 'Subscribe'}</Button>
+            <Button type="button" onClick={subscribe} disabled={loading} className="bg-brand hover:bg-brand-600">{loading ? 'Subscribing...' : 'Subscribe'}</Button>
           </CardContent>
         </Card>
       </div>
