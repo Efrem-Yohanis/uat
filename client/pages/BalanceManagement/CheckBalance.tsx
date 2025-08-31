@@ -20,74 +20,65 @@ interface AccountData {
     lastActivity: string;
     mainBalance: number;
     bonusBalance: number;
+    accountId: string;
+    state1: string;
+    state2: string;
+    accountBalance: number;
+    deviceId: string;
+    creationTime: string;
+    lastUpdateTime: string;
+    validityTime: string;
   };
-  bundles: {
+  bundles_details?: {
     id: string;
-    name: string;
-    type: string;
-    remaining: string;
-    expiryDate: string;
-    status: string;
+    bundleName: string;
+    bucketName: string;
+    measure: string;
+    initialValue: number;
+    currentValue: number;
+    unusedValue: number;
   }[];
-  loans: {
+  loanInstances?: {
     id: string;
     amount: number;
-    balance: number;
-    dueDate: string;
-    status: string;
-    type: string;
+    serviceFee: number;
+    remainingDebt: number;
+    creationTime: string;
   }[];
-  rechargeHistory: {
+  recharge_history?: {
     id: string;
-    date: string;
+    time: string;
     amount: number;
-    type: string;
     channel: string;
-    status: string;
+    bonus: string;
   }[];
 }
 
 // Account Info Card Component
-const AccountInfoCard = ({ accountInfo }: { accountInfo: AccountData['accountInfo'] }) => {
+const AccountInfoCard = ({ accountInfo, msisdn }: { accountInfo: AccountData['accountInfo']; msisdn: string }) => {
   return (
     <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <User className="h-5 w-5" />
-          Account Information
+          Account Details
         </CardTitle>
       </CardHeader>
       <CardContent>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="space-y-3">
-            <div className="flex justify-between">
-              <span className="text-muted-foreground">Customer Name:</span>
-              <span className="font-medium">{accountInfo.customerName}</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-muted-foreground">Account Type:</span>
-              <Badge variant="outline">{accountInfo.accountType}</Badge>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-muted-foreground">Status:</span>
-              <Badge className={accountInfo.status === 'Active' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}>
-                {accountInfo.status}
-              </Badge>
-            </div>
+          <div className="space-y-2">
+            <div className="flex justify-between"><span className="text-muted-foreground">Account ID:</span><span className="font-medium">{accountInfo.accountId}</span></div>
+            <div className="flex justify-between"><span className="text-muted-foreground">State 1:</span><span className="font-medium">{accountInfo.state1}</span></div>
+            <div className="flex justify-between"><span className="text-muted-foreground">State 2:</span><span className="font-medium">{accountInfo.state2}</span></div>
+            <div className="flex justify-between"><span className="text-muted-foreground">Account Type:</span><span className="font-medium">{accountInfo.accountType}</span></div>
+            <div className="flex justify-between"><span className="text-muted-foreground">Account Balance:</span><span className="font-bold text-brand">KES {accountInfo.accountBalance.toFixed(2)}</span></div>
           </div>
-          <div className="space-y-3">
-            <div className="flex justify-between">
-              <span className="text-muted-foreground">Main Balance:</span>
-              <span className="font-bold text-brand">KES {accountInfo.mainBalance.toFixed(2)}</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-muted-foreground">Bonus Balance:</span>
-              <span className="font-medium">KES {accountInfo.bonusBalance.toFixed(2)}</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-muted-foreground">Last Activity:</span>
-              <span className="font-medium">{accountInfo.lastActivity}</span>
-            </div>
+          <div className="space-y-2">
+            <div className="flex justify-between"><span className="text-muted-foreground">Device ID:</span><span className="font-medium">{accountInfo.deviceId}</span></div>
+            <div className="flex justify-between"><span className="text-muted-foreground">MSISDN:</span><span className="font-medium">{msisdn}</span></div>
+            <div className="flex justify-between"><span className="text-muted-foreground">Creation Time:</span><span className="font-medium">{accountInfo.creationTime}</span></div>
+            <div className="flex justify-between"><span className="text-muted-foreground">Last Update Time:</span><span className="font-medium">{accountInfo.lastUpdateTime}</span></div>
+            <div className="flex justify-between"><span className="text-muted-foreground">Validity Time:</span><span className="font-medium">{accountInfo.validityTime}</span></div>
           </div>
         </div>
       </CardContent>
@@ -96,20 +87,20 @@ const AccountInfoCard = ({ accountInfo }: { accountInfo: AccountData['accountInf
 };
 
 // Bundles Table Component
-const BundlesTable = ({ bundles }: { bundles: AccountData['bundles'] }) => {
-  if (bundles.length === 0) {
+const BundlesTable = ({ bundles }: { bundles?: AccountData['bundles_details'] }) => {
+  if (!bundles || bundles.length === 0) {
     return (
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Package className="h-5 w-5" />
-            Active Bundles
+            Bundles Details
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="text-center py-8 text-muted-foreground">
             <Package className="h-12 w-12 mx-auto mb-4 opacity-50" />
-            <p>No active bundles found</p>
+            <p>No bundles available.</p>
           </div>
         </CardContent>
       </Card>
@@ -121,35 +112,31 @@ const BundlesTable = ({ bundles }: { bundles: AccountData['bundles'] }) => {
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Package className="h-5 w-5" />
-          Active Bundles ({bundles.length})
+          Bundles Details ({bundles.length})
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="rounded-md border">
+        <div className="rounded-md border overflow-x-auto">
           <Table>
             <TableHeader>
               <TableRow>
                 <TableHead>Bundle Name</TableHead>
-                <TableHead>Type</TableHead>
-                <TableHead>Remaining</TableHead>
-                <TableHead>Expiry Date</TableHead>
-                <TableHead>Status</TableHead>
+                <TableHead>Bucket Name</TableHead>
+                <TableHead>Measure</TableHead>
+                <TableHead>Initial Value</TableHead>
+                <TableHead>Current Value</TableHead>
+                <TableHead>Unused Value</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {bundles.map((bundle) => (
-                <TableRow key={bundle.id}>
-                  <TableCell className="font-medium">{bundle.name}</TableCell>
-                  <TableCell>
-                    <Badge variant="outline">{bundle.type}</Badge>
-                  </TableCell>
-                  <TableCell className="font-medium">{bundle.remaining}</TableCell>
-                  <TableCell>{bundle.expiryDate}</TableCell>
-                  <TableCell>
-                    <Badge className={bundle.status === 'Active' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}>
-                      {bundle.status}
-                    </Badge>
-                  </TableCell>
+              {bundles.map((b) => (
+                <TableRow key={b.id}>
+                  <TableCell className="font-medium">{b.bundleName}</TableCell>
+                  <TableCell>{b.bucketName}</TableCell>
+                  <TableCell>{b.measure}</TableCell>
+                  <TableCell>{b.initialValue}</TableCell>
+                  <TableCell>{b.currentValue}</TableCell>
+                  <TableCell>{b.unusedValue}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -161,20 +148,20 @@ const BundlesTable = ({ bundles }: { bundles: AccountData['bundles'] }) => {
 };
 
 // Loans Table Component
-const LoansTable = ({ loans }: { loans: AccountData['loans'] }) => {
-  if (loans.length === 0) {
+const LoansTable = ({ loans }: { loans?: AccountData['loanInstances'] }) => {
+  if (!loans || loans.length === 0) {
     return (
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Banknote className="h-5 w-5" />
-            Active Loans
+            Loan Information
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="text-center py-8 text-muted-foreground">
             <Banknote className="h-12 w-12 mx-auto mb-4 opacity-50" />
-            <p>No active loans found</p>
+            <p>No loans available.</p>
           </div>
         </CardContent>
       </Card>
@@ -186,37 +173,29 @@ const LoansTable = ({ loans }: { loans: AccountData['loans'] }) => {
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Banknote className="h-5 w-5" />
-          Active Loans ({loans.length})
+          Loan Information ({loans.length})
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="rounded-md border">
+        <div className="rounded-md border overflow-x-auto">
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Loan Type</TableHead>
-                <TableHead>Amount</TableHead>
-                <TableHead>Balance</TableHead>
-                <TableHead>Due Date</TableHead>
-                <TableHead>Status</TableHead>
+                <TableHead>Loan ID</TableHead>
+                <TableHead>Loan Amount</TableHead>
+                <TableHead>Service Fee</TableHead>
+                <TableHead>Remaining Debt</TableHead>
+                <TableHead>Creation Time</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {loans.map((loan) => (
                 <TableRow key={loan.id}>
-                  <TableCell className="font-medium">{loan.type}</TableCell>
+                  <TableCell className="font-medium">{loan.id}</TableCell>
                   <TableCell>KES {loan.amount.toFixed(2)}</TableCell>
-                  <TableCell className="font-medium text-red-600">KES {loan.balance.toFixed(2)}</TableCell>
-                  <TableCell>{loan.dueDate}</TableCell>
-                  <TableCell>
-                    <Badge className={
-                      loan.status === 'Active' ? 'bg-yellow-100 text-yellow-800' :
-                      loan.status === 'Overdue' ? 'bg-red-100 text-red-800' :
-                      'bg-green-100 text-green-800'
-                    }>
-                      {loan.status}
-                    </Badge>
-                  </TableCell>
+                  <TableCell>KES {loan.serviceFee.toFixed(2)}</TableCell>
+                  <TableCell className="font-medium">KES {loan.remainingDebt.toFixed(2)}</TableCell>
+                  <TableCell>{loan.creationTime}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -228,8 +207,8 @@ const LoansTable = ({ loans }: { loans: AccountData['loans'] }) => {
 };
 
 // Recharge History Table Component
-const RechargeHistoryTable = ({ rechargeHistory }: { rechargeHistory: AccountData['rechargeHistory'] }) => {
-  if (rechargeHistory.length === 0) {
+const RechargeHistoryTable = ({ history }: { history?: AccountData['recharge_history'] }) => {
+  if (!history || history.length === 0) {
     return (
       <Card>
         <CardHeader>
@@ -241,7 +220,7 @@ const RechargeHistoryTable = ({ rechargeHistory }: { rechargeHistory: AccountDat
         <CardContent>
           <div className="text-center py-8 text-muted-foreground">
             <History className="h-12 w-12 mx-auto mb-4 opacity-50" />
-            <p>No recharge history found</p>
+            <p>No recharge history.</p>
           </div>
         </CardContent>
       </Card>
@@ -253,35 +232,29 @@ const RechargeHistoryTable = ({ rechargeHistory }: { rechargeHistory: AccountDat
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <History className="h-5 w-5" />
-          Recent Recharge History ({rechargeHistory.length})
+          Recharge History ({history.length})
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="rounded-md border">
+        <div className="rounded-md border overflow-x-auto">
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Date</TableHead>
+                <TableHead>Recharge ID</TableHead>
+                <TableHead>Recharge Time</TableHead>
                 <TableHead>Amount</TableHead>
-                <TableHead>Type</TableHead>
                 <TableHead>Channel</TableHead>
-                <TableHead>Status</TableHead>
+                <TableHead>Bonus (First Bundle ID)</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {rechargeHistory.map((recharge) => (
-                <TableRow key={recharge.id}>
-                  <TableCell>{recharge.date}</TableCell>
-                  <TableCell className="font-medium">KES {recharge.amount.toFixed(2)}</TableCell>
-                  <TableCell>
-                    <Badge variant="outline">{recharge.type}</Badge>
-                  </TableCell>
-                  <TableCell>{recharge.channel}</TableCell>
-                  <TableCell>
-                    <Badge className={recharge.status === 'Success' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}>
-                      {recharge.status}
-                    </Badge>
-                  </TableCell>
+              {history.map((r) => (
+                <TableRow key={r.id}>
+                  <TableCell className="font-medium">{r.id}</TableCell>
+                  <TableCell>{r.time}</TableCell>
+                  <TableCell>KES {r.amount.toFixed(2)}</TableCell>
+                  <TableCell>{r.channel}</TableCell>
+                  <TableCell>{r.bonus}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -317,7 +290,9 @@ export default function CheckBalance() {
       await new Promise(resolve => setTimeout(resolve, 1500));
 
       if (Math.random() > 0.1) { // 90% success rate
-        // Mock account data
+        // Mock account data (structured to match required display)
+        const mainBalance = 245.5;
+        const bonusBalance = 50.0;
         const mockAccountData: AccountData = {
           phoneNumber: phoneNumber,
           accountInfo: {
@@ -326,61 +301,67 @@ export default function CheckBalance() {
             status: 'Active',
             registrationDate: '2022-03-15',
             lastActivity: '2024-01-15 14:30',
-            mainBalance: 245.50,
-            bonusBalance: 50.00
+            mainBalance,
+            bonusBalance,
+            accountId: `ACC${Date.now()}`,
+            state1: 'Active',
+            state2: 'Verified',
+            accountBalance: mainBalance + bonusBalance,
+            deviceId: 'DEV-9843-XY',
+            creationTime: '2022-03-15 10:05',
+            lastUpdateTime: new Date().toLocaleString(),
+            validityTime: '2025-12-31 23:59'
           },
-          bundles: [
+          bundles_details: [
             {
-              id: 'B001',
-              name: 'Data Starter 1GB',
-              type: 'Data',
-              remaining: '750 MB',
-              expiryDate: '2024-02-15',
-              status: 'Active'
+              id: 'BDL-001',
+              bundleName: 'Data Starter',
+              bucketName: 'DATA_MAIN',
+              measure: 'MB',
+              initialValue: 1024,
+              currentValue: 750,
+              unusedValue: 274
             },
             {
-              id: 'B002',
-              name: 'Voice Bundle',
-              type: 'Voice',
-              remaining: '120 minutes',
-              expiryDate: '2024-01-25',
-              status: 'Active'
+              id: 'BDL-002',
+              bundleName: 'Voice Bundle',
+              bucketName: 'VOICE_MIN',
+              measure: 'Minutes',
+              initialValue: 200,
+              currentValue: 120,
+              unusedValue: 80
             }
           ],
-          loans: [
+          loanInstances: [
             {
-              id: 'L001',
-              amount: 100.00,
-              balance: 105.00,
-              dueDate: '2024-01-20',
-              status: 'Active',
-              type: 'Emergency Loan'
+              id: 'LN-1001',
+              amount: 100.0,
+              serviceFee: 5.0,
+              remainingDebt: 105.0,
+              creationTime: '2024-01-10 09:20'
             }
           ],
-          rechargeHistory: [
+          recharge_history: [
             {
-              id: 'R001',
-              date: '2024-01-15',
-              amount: 100.00,
-              type: 'Voucher',
+              id: 'RCG-001',
+              time: '2024-01-15 14:30',
+              amount: 100.0,
               channel: 'PIN',
-              status: 'Success'
+              bonus: 'BDL-001'
             },
             {
-              id: 'R002',
-              date: '2024-01-12',
-              amount: 50.00,
-              type: 'Pinless',
+              id: 'RCG-002',
+              time: '2024-01-12 16:00',
+              amount: 50.0,
               channel: 'MPESSA',
-              status: 'Success'
+              bonus: 'BDL-002'
             },
             {
-              id: 'R003',
-              date: '2024-01-10',
-              amount: 200.00,
-              type: 'Bank Transfer',
+              id: 'RCG-003',
+              time: '2024-01-10 11:45',
+              amount: 200.0,
               channel: 'Bank',
-              status: 'Success'
+              bonus: 'BDL-001'
             }
           ]
         };
@@ -493,71 +474,17 @@ export default function CheckBalance() {
         {/* Conditional Display Sections */}
         {accountData && (
           <div className="space-y-6">
-            {/* Account Info Card */}
-            <AccountInfoCard accountInfo={accountData.accountInfo} />
+            {/* Account Details */}
+            <AccountInfoCard accountInfo={accountData.accountInfo} msisdn={accountData.phoneNumber} />
 
-            {/* Grid Layout for Tables */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {/* Bundles Table */}
-              <BundlesTable bundles={accountData.bundles} />
+            {/* Bundles Details */}
+            <BundlesTable bundles={accountData.bundles_details} />
 
-              {/* Loans Table */}
-              <LoansTable loans={accountData.loans} />
-            </div>
+            {/* Loan Information */}
+            <LoansTable loans={accountData.loanInstances} />
 
-            {/* Recharge History Table - Full Width */}
-            <RechargeHistoryTable rechargeHistory={accountData.rechargeHistory} />
-
-            {/* Summary Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <Card>
-                <CardContent className="p-4">
-                  <div className="flex items-center gap-2">
-                    <Wallet className="h-4 w-4 text-brand" />
-                    <div>
-                      <p className="text-sm text-muted-foreground">Total Balance</p>
-                      <p className="font-bold">KES {(accountData.accountInfo.mainBalance + accountData.accountInfo.bonusBalance).toFixed(2)}</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardContent className="p-4">
-                  <div className="flex items-center gap-2">
-                    <Package className="h-4 w-4 text-green-600" />
-                    <div>
-                      <p className="text-sm text-muted-foreground">Active Bundles</p>
-                      <p className="font-bold">{accountData.bundles.length}</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardContent className="p-4">
-                  <div className="flex items-center gap-2">
-                    <Banknote className="h-4 w-4 text-red-600" />
-                    <div>
-                      <p className="text-sm text-muted-foreground">Active Loans</p>
-                      <p className="font-bold">{accountData.loans.length}</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardContent className="p-4">
-                  <div className="flex items-center gap-2">
-                    <History className="h-4 w-4 text-blue-600" />
-                    <div>
-                      <p className="text-sm text-muted-foreground">Recent Recharges</p>
-                      <p className="font-bold">{accountData.rechargeHistory.length}</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
+            {/* Recharge History */}
+            <RechargeHistoryTable history={accountData.recharge_history} />
           </div>
         )}
       </div>
