@@ -106,6 +106,26 @@ const sidebarNavItems: NavigationItem[] = [
         href: "/subscribe_bundle",
       },
       {
+        title: "Gift",
+        icon: Gift,
+        href: "/gift_bundle",
+      },
+      {
+        title: "Loan",
+        icon: Banknote,
+        href: "/loan_bundle",
+      },
+      {
+        title: "List Subscribed",
+        icon: List,
+        href: "/subscribed_bundles",
+      },
+      {
+        title: "CVM Bundle",
+        icon: Users,
+        href: "/cvm_bundle",
+      },
+      {
         title: "Remove Bundle",
         icon: XCircle,
         href: "/remove_bundle",
