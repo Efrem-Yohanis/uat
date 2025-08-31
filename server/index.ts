@@ -8,6 +8,7 @@ import { handleSubscriptions } from "./routes/subscriptions";
 import { handleGetCvmBuckets, handleCvmSubscribe } from "./routes/cvm";
 import { listMasterNotifications, createMasterNotification, getMasterNotification, updateMasterNotification, deleteMasterNotification } from "./routes/masterNotifications";
 import { listNotifications, getNotification, updateNotification, deleteNotification, regenerateNotification, downloadNotification } from "./routes/notifications";
+import { uploadRoamingRates, getRoamingRates, downloadRoamingExcel, downloadRateIdsZip, getMappingTable, downloadMappingCsv, compareMappingTables } from "./routes/rates";
 
 export function createServer() {
   const app = express();
@@ -46,6 +47,15 @@ export function createServer() {
   app.delete("/api/notifications/:id", deleteNotification);
   app.post("/api/notifications/:id/regenerate", regenerateNotification);
   app.get("/api/notifications/:id/download", downloadNotification);
+
+  // Rates APIs (mock)
+  app.post("/api/rates/roaming/upload", uploadRoamingRates);
+  app.get("/api/rates/roaming", getRoamingRates);
+  app.get("/api/rates/roaming/download-excel", downloadRoamingExcel);
+  app.get("/api/rates/roaming/download-zip", downloadRateIdsZip);
+  app.get("/api/rates/mapping", getMappingTable);
+  app.get("/api/rates/mapping/download", downloadMappingCsv);
+  app.post("/api/rates/mapping/compare", compareMappingTables);
 
   return app;
 }
