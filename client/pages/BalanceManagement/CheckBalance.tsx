@@ -451,8 +451,8 @@ export default function CheckBalance() {
                 </Alert>
               )}
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-end">
-                <div className="space-y-2">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
+                <div className="space-y-2 md:col-span-2">
                   <Label htmlFor="phoneNumber" className="flex items-center gap-2">
                     <Smartphone className="h-4 w-4" />
                     MSISDN
@@ -466,7 +466,7 @@ export default function CheckBalance() {
                     required
                   />
                 </div>
-                <div className="flex">
+                <div className="flex md:col-span-1">
                   <Button
                     type="submit"
                     className="w-full bg-brand hover:bg-brand-600"
