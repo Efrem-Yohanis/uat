@@ -110,7 +110,7 @@ export default function NotificationList() {
           <CardHeader>
             <CardTitle>Filters</CardTitle>
           </CardHeader>
-          <CardContent className="grid grid-cols-1 md:grid-cols-6 gap-4">
+          <CardContent className="grid grid-cols-1 gap-4">
             <div>
               <Label>Business Unit</Label>
               <Select value={filters.businessUnit || "__all__"} onValueChange={(v) => setFilters((f) => ({ ...f, businessUnit: v === "__all__" ? "" : v }))}>

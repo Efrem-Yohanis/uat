@@ -82,16 +82,16 @@ export default function RateMappingCompare() {
             <CardTitle className="flex items-center gap-2"><FileDiff className="h-5 w-5" /> Upload CSVs</CardTitle>
           </CardHeader>
           <CardContent>
-            <form onSubmit={submit} className="space-y-4 max-w-xl">
+            <form onSubmit={submit} className="space-y-4">
               <div>
                 <Label>Old Version CSV</Label>
-                <input ref={oldRef} type="file" accept=".csv" className="mt-2" />
+                <input ref={oldRef} type="file" accept=".csv" className="mt-2 w-full" />
               </div>
               <div>
                 <Label>New Version CSV</Label>
-                <input ref={newRef} type="file" accept=".csv" className="mt-2" />
+                <input ref={newRef} type="file" accept=".csv" className="mt-2 w-full" />
               </div>
-              <Button type="submit" disabled={loading} className="bg-brand hover:bg-brand-600">{loading ? 'Comparing...' : 'Submit'}</Button>
+              <Button type="submit" disabled={loading} className="w-full bg-brand hover:bg-brand-600">{loading ? 'Comparing...' : 'Submit'}</Button>
             </form>
 
             {result && (

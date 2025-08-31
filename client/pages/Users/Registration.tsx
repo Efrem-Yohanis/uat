@@ -82,7 +82,7 @@ export default function Registration() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <form onSubmit={submit} className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl">
+            <form onSubmit={submit} className="grid grid-cols-1 gap-4">
               <div>
                 <Label htmlFor="firstName">First Name</Label>
                 <Input id="firstName" value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
@@ -109,7 +109,7 @@ export default function Registration() {
                 </select>
               </div>
               <div className="md:col-span-2">
-                <Button type="submit" className="bg-brand hover:bg-brand-600" disabled={loading}>{loading ? 'Creating...' : 'Create'}</Button>
+                <Button type="submit" className="w-full bg-brand hover:bg-brand-600" disabled={loading}>{loading ? 'Creating...' : 'Create'}</Button>
               </div>
             </form>
           </CardContent>

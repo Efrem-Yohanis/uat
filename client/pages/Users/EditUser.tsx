@@ -91,7 +91,7 @@ export default function EditUser() {
               <CardTitle>User #{form.id}</CardTitle>
             </CardHeader>
             <CardContent>
-              <form onSubmit={save} className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl">
+              <form onSubmit={save} className="grid grid-cols-1 gap-4">
                 <div>
                   <Label htmlFor="firstName">First Name</Label>
                   <Input id="firstName" value={form.firstName} onChange={(e) => setForm({ ...(form as any), firstName: e.target.value })} />
@@ -121,7 +121,7 @@ export default function EditUser() {
                   </select>
                 </div>
                 <div className="md:col-span-2">
-                  <Button type="submit" className="bg-brand hover:bg-brand-600" disabled={loading}><Save className="h-4 w-4 mr-2" /> {loading ? 'Saving...' : 'Save'}</Button>
+                  <Button type="submit" className="w-full bg-brand hover:bg-brand-600" disabled={loading}><Save className="h-4 w-4 mr-2" /> {loading ? 'Saving...' : 'Save'}</Button>
                 </div>
               </form>
             </CardContent>

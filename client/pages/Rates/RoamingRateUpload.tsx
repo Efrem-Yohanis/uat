@@ -71,10 +71,10 @@ export default function RoamingRateUpload() {
             <CardTitle className="flex items-center gap-2"><Upload className="h-5 w-5" /> Upload Form</CardTitle>
           </CardHeader>
           <CardContent>
-            <form onSubmit={submit} className="space-y-4 max-w-xl">
+            <form onSubmit={submit} className="space-y-4">
               <div>
                 <Label>Roaming Tariff File (CSV/XLS)</Label>
-                <input ref={fileRef} type="file" accept=".csv,.xls,.xlsx" className="mt-2" />
+                <input ref={fileRef} type="file" accept=".csv,.xls,.xlsx" className="mt-2 w-full" />
               </div>
               <Button type="submit" disabled={loading} className="bg-brand hover:bg-brand-600">{loading ? 'Uploading...' : 'Submit'}</Button>
             </form>
