@@ -100,7 +100,7 @@ export default function SubscribedBundles() {
           </CardHeader>
           <CardContent>
             <form onSubmit={search} className="flex flex-col md:flex-row gap-3 md:items-end">
-              <div className="flex-1 max-w-xl">
+              <div className="flex-1">
                 <Label htmlFor="msisdn">MSISDN</Label>
                 <Input id="msisdn" value={msisdn} onChange={(e) => setMsisdn(e.target.value)} placeholder="MSISDN" required />
               </div>
