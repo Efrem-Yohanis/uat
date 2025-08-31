@@ -71,8 +71,8 @@ export default function TaxCalculator() {
             <CardTitle className="flex items-center gap-2"><Calculator className="h-5 w-5" /> Calculator</CardTitle>
             <CardDescription>Choose your input type and enter an amount</CardDescription>
           </CardHeader>
-          <CardContent className="grid grid-cols-1 md:grid-cols-6 gap-4 items-end">
-            <div className="md:col-span-2">
+          <CardContent className="grid grid-cols-1 gap-4">
+            <div>
               <Label>Input Type</Label>
               <Select value={inputType} onValueChange={(v) => setInputType(v as 'net'|'gross')}>
                 <SelectTrigger className="mt-2"><SelectValue /></SelectTrigger>
@@ -82,11 +82,11 @@ export default function TaxCalculator() {
                 </SelectContent>
               </Select>
             </div>
-            <div className="md:col-span-2">
+            <div>
               <Label>Amount</Label>
               <Input className="mt-2" inputMode="decimal" value={input} onChange={(e) => setInput(e.target.value)} placeholder="e.g. 1000" />
             </div>
-            <div className="md:col-span-2">
+            <div>
               <Button disabled className="w-full opacity-75">Live Calculation</Button>
             </div>
           </CardContent>
