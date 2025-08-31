@@ -42,6 +42,9 @@ import {
   Calculator,
   RefreshCw,
   Cog,
+  Gift,
+  Banknote,
+  Users,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/context/AuthContext";
