@@ -46,6 +46,8 @@ import CVMBundle from "./pages/BundleManagement/CVMBundle";
 
 // Utilities Pages
 import UnitConversion from "./pages/Utilities/UnitConversion";
+import TaxCalculator from "./pages/Utilities/TaxCalculator";
+import BundleConfigGenerator from "./pages/Utilities/BundleConfigGenerator";
 import RoamingRateUpload from "./pages/Rates/RoamingRateUpload";
 import RoamingRates from "./pages/Rates/RoamingRates";
 import RateMappingTable from "./pages/Rates/RateMappingTable";
@@ -208,6 +210,16 @@ const App = () => (
             <Route path="/unit_convertion" element={
               <ProtectedRoute adminOnly>
                 <UnitConversion />
+              </ProtectedRoute>
+            } />
+            <Route path="/tax_cal" element={
+              <ProtectedRoute adminOnly>
+                <TaxCalculator />
+              </ProtectedRoute>
+            } />
+            <Route path="/bundle_list_new" element={
+              <ProtectedRoute adminOnly>
+                <BundleConfigGenerator />
               </ProtectedRoute>
             } />
 
