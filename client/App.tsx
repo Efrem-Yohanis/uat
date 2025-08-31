@@ -26,6 +26,7 @@ import NotificationList from "./pages/Notifications/NotificationList";
 import NotificationDetail from "./pages/Notifications/NotificationDetail";
 import UserManagement from "./pages/Users/UserManagement";
 import Registration from "./pages/Users/Registration";
+import EditUser from "./pages/Users/EditUser";
 import NotFound from "./pages/NotFound";
 
 // Balance Management Pages
@@ -254,6 +255,11 @@ const App = () => (
             <Route path="/registration" element={
               <ProtectedRoute adminOnly>
                 <Registration />
+              </ProtectedRoute>
+            } />
+            <Route path="/edit_user/:id" element={
+              <ProtectedRoute adminOnly>
+                <EditUser />
               </ProtectedRoute>
             } />
 
