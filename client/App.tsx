@@ -20,7 +20,10 @@ import Balance from "./pages/Balance";
 import Bundles from "./pages/Bundles";
 import Notifications from "./pages/Notifications";
 import MasterNotificationList from "./pages/Notifications/MasterNotificationList";
+import MasterNotificationAdd from "./pages/Notifications/MasterNotificationAdd";
+import MasterNotificationDetail from "./pages/Notifications/MasterNotificationDetail";
 import NotificationList from "./pages/Notifications/NotificationList";
+import NotificationDetail from "./pages/Notifications/NotificationDetail";
 import UserManagement from "./pages/Users/UserManagement";
 import Registration from "./pages/Users/Registration";
 import NotFound from "./pages/NotFound";
@@ -95,9 +98,24 @@ const App = () => (
                 <MasterNotificationList />
               </ProtectedRoute>
             } />
+            <Route path="/master_notification_add" element={
+              <ProtectedRoute businessOnly>
+                <MasterNotificationAdd />
+              </ProtectedRoute>
+            } />
+            <Route path="/master_notification/:id" element={
+              <ProtectedRoute businessOnly>
+                <MasterNotificationDetail />
+              </ProtectedRoute>
+            } />
             <Route path="/notification_list" element={
               <ProtectedRoute businessOnly>
                 <NotificationList />
+              </ProtectedRoute>
+            } />
+            <Route path="/notification/:id" element={
+              <ProtectedRoute businessOnly>
+                <NotificationDetail />
               </ProtectedRoute>
             } />
 
