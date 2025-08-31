@@ -115,49 +115,51 @@ export default function PinRecharge() {
                   </Alert>
                 )}
 
-                <div className="space-y-2">
-                  <Label
-                    htmlFor="phoneNumber"
-                    className="flex items-center gap-2"
-                  >
-                    <Smartphone className="h-4 w-4" />
-                    Phone Number *
-                  </Label>
-                  <Input
-                    id="phoneNumber"
-                    type="tel"
-                    placeholder="e.g., +254712345678"
-                    value={phoneNumber}
-                    onChange={(e) => setPhoneNumber(e.target.value)}
-                    required
-                  />
-                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label
+                      htmlFor="phoneNumber"
+                      className="flex items-center gap-2"
+                    >
+                      <Smartphone className="h-4 w-4" />
+                      Phone Number *
+                    </Label>
+                    <Input
+                      id="phoneNumber"
+                      type="tel"
+                      placeholder="e.g., +254712345678"
+                      value={phoneNumber}
+                      onChange={(e) => setPhoneNumber(e.target.value)}
+                      required
+                    />
+                  </div>
 
-                <div className="space-y-2">
-                  <Label
-                    htmlFor="pinNumber"
-                    className="flex items-center gap-2"
-                  >
-                    <Hash className="h-4 w-4" />
-                    Scratch Card PIN *
-                  </Label>
-                  <Input
-                    id="pinNumber"
-                    type="text"
-                    placeholder="Enter 16-digit PIN"
-                    value={pinNumber}
-                    onChange={(e) =>
-                      setPinNumber(
-                        e.target.value.replace(/\D/g, "").substring(0, 16),
-                      )
-                    }
-                    required
-                    maxLength={16}
-                    minLength={10}
-                  />
-                  <p className="text-xs text-muted-foreground">
-                    PIN should be 10-16 digits long
-                  </p>
+                  <div className="space-y-2">
+                    <Label
+                      htmlFor="pinNumber"
+                      className="flex items-center gap-2"
+                    >
+                      <Hash className="h-4 w-4" />
+                      Scratch Card PIN *
+                    </Label>
+                    <Input
+                      id="pinNumber"
+                      type="text"
+                      placeholder="Enter 16-digit PIN"
+                      value={pinNumber}
+                      onChange={(e) =>
+                        setPinNumber(
+                          e.target.value.replace(/\D/g, "").substring(0, 16),
+                        )
+                      }
+                      required
+                      maxLength={16}
+                      minLength={10}
+                    />
+                    <p className="text-xs text-muted-foreground">
+                      PIN should be 10-16 digits long
+                    </p>
+                  </div>
                 </div>
 
                 <Button
