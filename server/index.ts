@@ -58,5 +58,12 @@ export function createServer() {
   app.get("/api/rates/mapping/download", downloadMappingCsv);
   app.post("/api/rates/mapping/compare", compareMappingTables);
 
+  // Users APIs (mock)
+  app.get("/api/users", listUsers);
+  app.post("/api/users", createUser);
+  app.get("/api/users/:id", getUser);
+  app.put("/api/users/:id", updateUser);
+  app.delete("/api/users/:id", deleteUser);
+
   return app;
 }
